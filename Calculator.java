@@ -2,20 +2,22 @@ package Java.Projects;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Calculator {
+    public static List<String> history = new LinkedList<>();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         boolean isRunning = true;
-     double firstInput = getInput("Enter first input :", scanner);
-     double secondInput = 0;
+        double firstInput = getInput("Enter first input :", scanner);
+        double secondInput = 0;
 
-
-        while(isRunning){
-            System.out.println("Enter operator (+,-,*,/ or end): ");
+        while (isRunning) {
+            System.out.println("Enter operator (+,-,*,/,sqrt,history or end): ");
             String operator = scanner.next();
 
             switch (operator) {
@@ -39,53 +41,90 @@ public class Calculator {
 
                 case "/":
                     secondInput = getInput("Enter second input", scanner);
-                    firstInput = division(firstInput, secondInput);
+                    if (secondInput == 0) {
+                        System.out.println("Can't divide by 0");
+                        secondInput = getInput("Enter second input", scanner);
+                        firstInput = division(firstInput, secondInput);
+                        System.out.println(firstInput);
+                    } else {
+                        firstInput = division(firstInput, secondInput);
+                        System.out.println(firstInput);
+                    }
+                    break;
+
+                case "sqrt":
+                    firstInput = sqrt(firstInput);
                     System.out.println(firstInput);
                     break;
 
-                case "end" : 
+                case "history":
+                    showHistory();
+                    break;
+
+                case "end":
                     System.out.println("Program ends");
                     isRunning = false;
                     break;
-            
+
                 default:
-                System.out.println("Enter valid operator..");
+                    System.out.println("Enter valid operator..");
                     break;
             }
-           }
         }
+    }
 
-        private static double addition (double inputOne, double inputTwo){
-         double result = inputOne + inputTwo;
-            return result;
-        }  
+    private static double addition(double inputOne, double inputTwo) {
+        double result = inputOne + inputTwo;
+        history.add(inputOne + " + " + inputTwo + " = " + result);
+        return result;
+    }
 
-        private static double substraction (double inputOne, double inputTwo){
-            return inputOne - inputTwo;
+    private static double substraction(double inputOne, double inputTwo) {
+        double result = inputOne - inputTwo;
+        history.add(inputOne + " - " + inputTwo + " = " + result);
+        return result;
+    }
+
+    private static double multiplication(double inputOne, double inputTwo) {
+        double result = inputOne * inputTwo;
+        history.add(inputOne + " * " + inputTwo + " = " + result);
+        return result;
+    }
+
+    private static double division(double inputOne, double inputTwo) {
+        double result = inputOne / inputTwo;
+        history.add(inputOne + " / " + inputTwo + " = " + result);
+        return result;
+    }
+
+    private static double sqrt(double inputOne) {
+        double result = Math.sqrt(inputOne);
+        history.add("Square root of " + inputOne + "=" + result);
+        return result;
+    }
+
+    private static void showHistory() {
+        System.out.println("Calculation history");
+
+        for (String record : history) {
+            System.out.println(record);
         }
+    }
 
-        private static double multiplication (double inputOne, double inputTwo){
-            return inputOne * inputTwo;
-        }
+    private static double getInput(String prompt, Scanner scanner) {
+        boolean isValid = false;
+        double input = 0;
 
-        private static double division (double inputOne, double inputTwo){
-            return inputOne / inputTwo;
-        }
-        
-        private static double getInput(String prompt, Scanner scanner){
-            boolean isValid = false;
-            double input = 0;
-
-            while(!isValid){
-                System.out.println(prompt);
-                try {
-                    input = scanner.nextInt();
-                    isValid = true;
-                } catch (InputMismatchException e) {
-                    System.out.println("Try again! Please enter valid doubleeger value...");
-                    scanner.next();
-                }
+        while (!isValid) {
+            System.out.println(prompt);
+            try {
+                input = scanner.nextInt();
+                isValid = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Try again! Please enter valid doubleeger value...");
+                scanner.next();
             }
-            return input;
         }
+        return input;
+    }
 }
