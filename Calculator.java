@@ -10,24 +10,36 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
 
         boolean isRunning = true;
-        int firstInput = getInput("Enter first input :", scanner);
-        int secondInput = 0;
+     double firstInput = getInput("Enter first input :", scanner);
+     double secondInput = 0;
 
 
         while(isRunning){
-            System.out.println("Enter operator (+,- or end): ");
+            System.out.println("Enter operator (+,-,*,/ or end): ");
             String operator = scanner.next();
 
             switch (operator) {
                 case "+":
                     secondInput = getInput("Enter second input :", scanner);
-                    firstInput = Addition(firstInput, secondInput);
+                    firstInput = addition(firstInput, secondInput);
                     System.out.println(firstInput);
                     break;
 
                 case "-":
                     secondInput = getInput("Enter second input", scanner);
-                    firstInput = Substraction(firstInput, secondInput);
+                    firstInput = substraction(firstInput, secondInput);
+                    System.out.println(firstInput);
+                    break;
+
+                case "*":
+                    secondInput = getInput("Enter second input", scanner);
+                    firstInput = multiplication(firstInput, secondInput);
+                    System.out.println(firstInput);
+                    break;
+
+                case "/":
+                    secondInput = getInput("Enter second input", scanner);
+                    firstInput = division(firstInput, secondInput);
                     System.out.println(firstInput);
                     break;
 
@@ -43,18 +55,26 @@ public class Calculator {
            }
         }
 
-        private static int Addition(int inputOne, int inputTwo){
-            int result = inputOne + inputTwo;
+        private static double addition (double inputOne, double inputTwo){
+         double result = inputOne + inputTwo;
             return result;
         }  
 
-        private static int Substraction(int inputOne, int inputTwo){
+        private static double substraction (double inputOne, double inputTwo){
             return inputOne - inputTwo;
         }
+
+        private static double multiplication (double inputOne, double inputTwo){
+            return inputOne * inputTwo;
+        }
+
+        private static double division (double inputOne, double inputTwo){
+            return inputOne / inputTwo;
+        }
         
-        private static int getInput(String prompt, Scanner scanner){
+        private static double getInput(String prompt, Scanner scanner){
             boolean isValid = false;
-            int input = 0;
+            double input = 0;
 
             while(!isValid){
                 System.out.println(prompt);
@@ -62,7 +82,7 @@ public class Calculator {
                     input = scanner.nextInt();
                     isValid = true;
                 } catch (InputMismatchException e) {
-                    System.out.println("Try again! Please enter valid integer value...");
+                    System.out.println("Try again! Please enter valid doubleeger value...");
                     scanner.next();
                 }
             }
