@@ -13,13 +13,13 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
 
         boolean isRunning = true;
-        double firstInput = getInput("Enter first input :", scanner);
-        double secondInput = 0;
 
         while (isRunning) {
-            System.out.println("Enter operator (+,-,*,/,sqrt,history or end): ");
-            String operator = scanner.next();
+            double firstInput = getInput("Enter first input :", scanner);
+            double secondInput = 0;
 
+            System.out.println("Enter operator (+,-,*,/,sqrt,history,reset or end): ");
+            String operator = scanner.next();
             switch (operator) {
                 case "+":
                     secondInput = getInput("Enter second input :", scanner);
@@ -62,14 +62,19 @@ public class Calculator {
                     break;
 
                 case "end":
-                    System.out.println("Program ends");
+                    System.out.println("Calculation ends");
                     isRunning = false;
+                    break;
+                
+                case "reset" :
+                    System.out.println("Calculations got reset");
                     break;
 
                 default:
                     System.out.println("Enter valid operator..");
                     break;
             }
+
         }
     }
 
