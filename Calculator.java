@@ -18,7 +18,7 @@ public class Calculator {
             double firstInput = getInput("Enter first input :", scanner);
             double secondInput = 0;
 
-            System.out.println("Enter operator (+,-,*,/,sqrt,history,reset or end): ");
+            System.out.println("Enter operator (+, -, *, /, %, sqrt, history, reset or end): ");
             String operator = scanner.next();
             switch (operator) {
                 case "+":
@@ -57,6 +57,12 @@ public class Calculator {
                     System.out.println(firstInput);
                     break;
 
+                case "%":
+                    secondInput = getInput("Enter second input", scanner);
+                    firstInput = firstInput % secondInput;
+                    System.out.println(firstInput);
+                    break;
+
                 case "history":
                     showHistory();
                     break;
@@ -65,8 +71,8 @@ public class Calculator {
                     System.out.println("Calculation ends");
                     isRunning = false;
                     break;
-                
-                case "reset" :
+
+                case "reset":
                     System.out.println("Calculations got reset");
                     break;
 
@@ -105,6 +111,12 @@ public class Calculator {
     private static double sqrt(double inputOne) {
         double result = Math.sqrt(inputOne);
         history.add("Square root of " + inputOne + "=" + result);
+        return result;
+    }
+
+    private static double modulus(double inputOne, double inputTwo) {
+        double result = inputOne % inputTwo;
+        history.add(inputOne + " modulus " + inputTwo + " = " + result);
         return result;
     }
 
