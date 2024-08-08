@@ -72,10 +72,6 @@ public class Calculator {
                     isRunning = false;
                     break;
 
-                case "reset":
-                    System.out.println("Calculations got reset");
-                    break;
-
                 default:
                     System.out.println("Enter valid operator..");
                     break;
@@ -111,12 +107,6 @@ public class Calculator {
     private static double sqrt(double inputOne) {
         double result = Math.sqrt(inputOne);
         history.add("Square root of " + inputOne + "=" + result);
-        return result;
-    }
-
-    private static double modulus(double inputOne, double inputTwo) {
-        double result = inputOne % inputTwo;
-        history.add(inputOne + " modulus " + inputTwo + " = " + result);
         return result;
     }
 
